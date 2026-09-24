@@ -1,0 +1,5 @@
+# Guide d'Installation Client
+
+1. Double-cliquez sur "Creer_Raccourci_Bureau.bat" pour installer l'icone sur le Bureau Windows.
+2. Double-cliquez sur le raccourci "Gestion Eleves" du Bureau pour lancer l'application.
+3. Lors de la premiere ouverture sur un nouvel ordinateur, transmettez le code HWID a l'administrateur pour obtenir votre cle de deverrouillage.
