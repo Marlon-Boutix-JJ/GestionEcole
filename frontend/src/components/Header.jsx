@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { LogOut, ShieldCheck } from 'lucide-react';
+import InstallPwaButton from './InstallPwaButton';
 
 const Header = () => {
   const { user, logout } = useContext(AuthContext);
@@ -28,7 +29,10 @@ const Header = () => {
         </div>
       </div>
 
-      <div className="header-right">
+      <div className="header-right" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        {/* Install PWA / Native Shortcut Button */}
+        <InstallPwaButton />
+
         <button className="btn-logout" onClick={logout} title="Se déconnecter de la session">
           <LogOut size={16} />
           <span>Déconnexion</span>
