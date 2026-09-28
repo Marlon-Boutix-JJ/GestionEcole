@@ -1,5 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { Lock, ShieldCheck, Copy, KeyRound, AlertTriangle, CheckCircle } from 'lucide-react';
+import { Lock, ShieldCheck, Copy, KeyRound, AlertTriangle, CheckCircle, RefreshCw } from 'lucide-react';
+
+const getClientFallbackHWID = () => {
+  try {
+    let stored = localStorage.getItem('app_client_hwid');
+    if (!stored) {
+      const raw = (navigator.userAgent || '') + (screen.width + 'x' + screen.height) + 'CLIENT_APP';
+      let hash = 0;
+      for (let i = 0; i < raw.length; i++) {
+        hash = ((hash << 5) - hash) + raw.charCodeAt(i);
+        hash |= 0;
+      }
+      const hex = Math.abs(hash).toString(16).padStart(16, '0').toUpperCase();
+      stored = `HWID-${hex.slice(0,4)}-${hex.slice(4,8)}-${hex.slice(8,12)}-${hex.slice(12,16)}`;
+      localStorage.setItem('app_client_hwid', stored);
+    }
+    return stored;
+  } catch (e) {
+    return 'HWID-OFFLINE-CLIENT-0001';
+  }
+};
 
 const LicenseLockModal = ({ onActivationSuccess }) => {
   const [isActivated, setIsActivated] = useState(true);
@@ -9,18 +29,29 @@ const LicenseLockModal = ({ onActivationSuccess }) => {
   const [errorMsg, setErrorMsg] = useState('');
   const [copied, setCopied] = useState(false);
   const [activating, setActivating] = useState(false);
+  const [serverOffline, setServerOffline] = useState(false);
 
   const checkStatus = async () => {
     try {
       setLoading(true);
+      setErrorMsg('');
+      setServerOffline(false);
       const res = await fetch('/api/license/status');
       const data = await res.json();
-      setIsActivated(data.isActivated);
-      setMachineId(data.machineId || '');
+      
+      if (data && data.machineId) {
+        setMachineId(data.machineId);
+      } else {
+        setMachineId(getClientFallbackHWID());
+      }
+
+      setIsActivated(!!data.isActivated);
     } catch (err) {
       console.error('License check error:', err);
-      // In case server is starting
+      setMachineId(getClientFallbackHWID());
       setIsActivated(false);
+      setServerOffline(true);
+      setErrorMsg('Impossible de contacter le serveur backend. Assurez-vous d\'exécuter Lancer_Application.bat.');
     } finally {
       setLoading(false);
     }
@@ -31,8 +62,21 @@ const LicenseLockModal = ({ onActivationSuccess }) => {
   }, []);
 
   const handleCopyHWID = () => {
-    if (!machineId) return;
-    navigator.clipboard.writeText(machineId);
+    const hwidToCopy = machineId || getClientFallbackHWID();
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(hwidToCopy);
+      } else {
+        const textElem = document.createElement('textarea');
+        textElem.value = hwidToCopy;
+        document.body.appendChild(textElem);
+        textElem.select();
+        document.execCommand('copy');
+        document.body.removeChild(textElem);
+      }
+    } catch (e) {
+      // Fallback copy
+    }
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -62,9 +106,10 @@ const LicenseLockModal = ({ onActivationSuccess }) => {
       }
 
       setIsActivated(true);
+      setServerOffline(false);
       if (onActivationSuccess) onActivationSuccess();
     } catch (err) {
-      setErrorMsg('Erreur de connexion au serveur backend.');
+      setErrorMsg('Erreur de connexion au serveur backend. Démarrez l\'application via Lancer_Application.bat.');
     } finally {
       setActivating(false);
     }
@@ -73,6 +118,8 @@ const LicenseLockModal = ({ onActivationSuccess }) => {
   if (loading || isActivated) {
     return null; // Do not block if activated or loading initial status
   }
+
+  const currentHWID = machineId || getClientFallbackHWID();
 
   return (
     <div style={{
@@ -130,12 +177,21 @@ const LicenseLockModal = ({ onActivationSuccess }) => {
           marginBottom: '20px',
           textAlign: 'left'
         }}>
-          <span style={{ fontSize: '0.75rem', fontWeight: '700', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-            Code Ordinateur (HWID) :
-          </span>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <span style={{ fontSize: '0.75rem', fontWeight: '700', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+              Code Ordinateur (HWID) :
+            </span>
+            <button 
+              onClick={checkStatus} 
+              title="Vérifier le serveur"
+              style={{ background: 'transparent', border: 'none', color: '#94a3b8', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.75rem' }}
+            >
+              <RefreshCw size={12} /> Actualiser
+            </button>
+          </div>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '6px' }}>
             <span style={{ fontFamily: 'monospace', fontSize: '1.1rem', fontWeight: '700', color: '#10b981', letterSpacing: '1px' }}>
-              {machineId}
+              {currentHWID}
             </span>
             <button
               onClick={handleCopyHWID}
@@ -232,3 +288,4 @@ const LicenseLockModal = ({ onActivationSuccess }) => {
 };
 
 export default LicenseLockModal;
+
