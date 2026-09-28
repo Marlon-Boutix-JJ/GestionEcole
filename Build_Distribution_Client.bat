@@ -21,6 +21,7 @@ mkdir "Gestion_Eleves_Client_Pack"
 echo [3/4] Copie des fichiers d'execution (Executable/Serveur unifie)...
 xcopy "backend" "Gestion_Eleves_Client_Pack\backend" /E /I /H /Y /Q
 xcopy "frontend\dist" "Gestion_Eleves_Client_Pack\frontend\dist" /E /I /H /Y /Q
+if exist "Gestion_Eleves_Client_Pack\backend\license.json" del /f /q "Gestion_Eleves_Client_Pack\backend\license.json"
 copy "Lancer_Application.bat" "Gestion_Eleves_Client_Pack\" /Y
 copy "Creer_Raccourci_Bureau.bat" "Gestion_Eleves_Client_Pack\" /Y
 if exist "app-icon.ico" copy "app-icon.ico" "Gestion_Eleves_Client_Pack\" /Y
