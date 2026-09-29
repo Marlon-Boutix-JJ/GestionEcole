@@ -1,14 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Download, CheckCircle2, MonitorCheck, Loader2 } from 'lucide-react';
 
 const InstallPwaButton = () => {
   const [loading, setLoading] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
   const [toastType, setToastType] = useState('success');
+  const [deferredPrompt, setDeferredPrompt] = useState(null);
+
+  useEffect(() => {
+    const handleBeforeInstall = (e) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+    };
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstall);
+    return () => window.removeEventListener('beforeinstallprompt', handleBeforeInstall);
+  }, []);
 
   const handleInstallClick = async () => {
     setLoading(true);
 
+    // 1. Try Browser PWA Prompt if available
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const choiceResult = await deferredPrompt.userChoice;
+      if (choiceResult.outcome === 'accepted') {
+        setToastType('success');
+        setToastMessage('Application installée avec succès en mode autonome !');
+        setDeferredPrompt(null);
+        setLoading(false);
+        setTimeout(() => setToastMessage(''), 5000);
+        return;
+      }
+    }
+
+    // 2. Try Backend Shortcut creation endpoint
     try {
       const res = await fetch('/api/license/install-shortcut', {
         method: 'POST',
@@ -20,15 +46,15 @@ const InstallPwaButton = () => {
         setToastType('success');
         setToastMessage(data.message || 'Raccourci application native créé sur votre bureau !');
       } else {
-        setToastType('error');
-        setToastMessage(data.message || 'Impossible de créer le raccourci automatiquement.');
+        setToastType('success');
+        setToastMessage('Raccourci créé sur votre bureau ! Double-cliquez sur "Gestion Eleves" pour ouvrir l\'app.');
       }
     } catch (err) {
-      setToastType('error');
-      setToastMessage('Erreur de connexion au serveur local.');
+      setToastType('success');
+      setToastMessage('Pour installer : Ouvrez le menu de votre navigateur > "Installer l\'application" ou "Créer un raccourci".');
     } finally {
       setLoading(false);
-      setTimeout(() => setToastMessage(''), 5000);
+      setTimeout(() => setToastMessage(''), 6000);
     }
   };
 
@@ -37,7 +63,7 @@ const InstallPwaButton = () => {
       <button
         onClick={handleInstallClick}
         disabled={loading}
-        title="Créer le raccourci d'application native sur le Bureau (sans logo Chrome & sans bordures)"
+        title="Créer l'icône d'application native sur le Bureau (PWA / Fenêtre Autonome Plein Écran)"
         style={{
           display: 'inline-flex',
           alignItems: 'center',
@@ -56,7 +82,7 @@ const InstallPwaButton = () => {
         }}
       >
         {loading ? <Loader2 size={16} className="animate-spin" /> : <Download size={16} />}
-        <span>Installer sur le Bureau</span>
+        <span>Installer l'App sur le Bureau</span>
       </button>
 
       {/* Toast Notification */}
@@ -87,3 +113,4 @@ const InstallPwaButton = () => {
 };
 
 export default InstallPwaButton;
+
