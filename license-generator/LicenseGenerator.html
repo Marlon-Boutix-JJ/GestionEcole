@@ -209,16 +209,16 @@
 
     <div class="form-group">
       <label for="hwidInput">CODE MATÉRIEL CLIENT (HWID) :</label>
-      <input type="text" id="hwidInput" placeholder="Ex: HWID-9F8A-3B2C-1D4E" autocomplete="off">
+      <input type="text" id="hwidInput" placeholder="Ex: HWID-9F8A-3B2C-1D4E" autocomplete="off" oninput="generateLicenseKey()" onpaste="setTimeout(generateLicenseKey, 50)">
     </div>
 
     <button class="btn-generate" onclick="generateLicenseKey()">🔑 Générer la Clé Pro</button>
 
     <div class="result-box" id="resultBox">
       <label>CLÉ D'ACTIVATION PRO GÉNÉRÉE :</label>
-      <div class="key-display">
+      <div class="key-display" onclick="copyKey()" style="cursor: pointer;" title="Cliquer pour copier">
         <input type="text" readonly id="keyResult" class="key-input-read" value="LIC-0000-0000-0000-0000">
-        <button class="btn-copy" onclick="copyKey()" id="copyBtn">Copier</button>
+        <button class="btn-copy" onclick="event.stopPropagation(); copyKey();" id="copyBtn">Copier</button>
       </div>
     </div>
 
@@ -355,9 +355,11 @@
     }
 
     function generateLicenseKey() {
-      const input = document.getElementById('hwidInput').value.trim().toUpperCase();
+      const rawInput = document.getElementById('hwidInput').value;
+      const input = rawInput ? rawInput.trim().toUpperCase() : '';
+      
       if (!input) {
-        alert("Veuillez saisir ou coller le code HWID de l'ordinateur client !");
+        document.getElementById('resultBox').classList.remove('active');
         return;
       }
 
@@ -376,17 +378,36 @@
 
     function copyKey() {
       const keyInput = document.getElementById('keyResult');
-      keyInput.select();
-      keyInput.setSelectionRange(0, 99999);
+      const valToCopy = keyInput.value;
+      if (!valToCopy || valToCopy.includes('0000-0000')) return;
 
+      let copiedSuccess = false;
       try {
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(keyInput.value);
-        } else {
-          document.execCommand('copy');
+        if (navigator.clipboard && window.isSecureContext) {
+          navigator.clipboard.writeText(valToCopy);
+          copiedSuccess = true;
         }
-      } catch (e) {
-        document.execCommand('copy');
+      } catch (e) {}
+
+      if (!copiedSuccess) {
+        try {
+          keyInput.select();
+          keyInput.setSelectionRange(0, 99999);
+          
+          const textArea = document.createElement("textarea");
+          textArea.value = valToCopy;
+          textArea.style.position = "fixed";
+          textArea.style.left = "-999999px";
+          textArea.style.top = "-999999px";
+          document.body.appendChild(textArea);
+          textArea.focus();
+          textArea.select();
+          document.execCommand('copy');
+          textArea.remove();
+          copiedSuccess = true;
+        } catch (err) {
+          console.error('Copy fallback failed', err);
+        }
       }
 
       const btn = document.getElementById('copyBtn');
