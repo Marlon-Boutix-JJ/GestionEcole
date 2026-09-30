@@ -51,22 +51,35 @@ const AuthPage = () => {
 
   return (
     <div style={{
-      minHeight: '100vh',
+      height: '100vh',
+      maxHeight: '100vh',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
       background: 'radial-gradient(circle at top, #14231B 0%, #090D0B 100%)',
-      padding: '2rem 1rem'
+      padding: '0.75rem',
+      boxSizing: 'border-box',
+      overflow: 'hidden'
     }}>
-      <div className="auth-card">
-        <div className="auth-header">
-          <div className="logo-icon" style={{ margin: '0 auto', width: '48px', height: '48px' }}>
-            <School size={28} />
+      <div className="auth-card" style={{
+        maxWidth: '520px',
+        width: '100%',
+        padding: '1.25rem 1.5rem',
+        margin: 'auto',
+        boxSizing: 'border-box',
+        maxHeight: '98vh',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center'
+      }}>
+        <div className="auth-header" style={{ marginBottom: '0.75rem', textAlign: 'center' }}>
+          <div className="logo-icon" style={{ margin: '0 auto', width: '38px', height: '38px', borderRadius: '10px' }}>
+            <School size={22} />
           </div>
-          <h2 className="auth-title">
+          <h2 className="auth-title" style={{ fontSize: '1.25rem', marginTop: '0.35rem', marginBottom: '0.15rem' }}>
             {isLoginMode ? 'Connexion Admin' : 'Création de Compte Admin'}
           </h2>
-          <p className="auth-subtitle">
+          <p className="auth-subtitle" style={{ fontSize: '0.8rem', color: '#9CA3AF' }}>
             {isLoginMode 
               ? 'Connectez-vous pour accéder au tableau de bord' 
               : 'Initialisez une session administrateur sécurisée'}
@@ -78,15 +91,15 @@ const AuthPage = () => {
             background: 'rgba(248, 113, 113, 0.12)',
             border: '1px solid rgba(248, 113, 113, 0.3)',
             color: '#F87171',
-            padding: '0.75rem 1rem',
-            borderRadius: '10px',
-            fontSize: '0.85rem',
-            marginBottom: '1.25rem',
+            padding: '0.5rem 0.75rem',
+            borderRadius: '8px',
+            fontSize: '0.8rem',
+            marginBottom: '0.75rem',
             display: 'flex',
             alignItems: 'center',
             gap: '0.5rem'
           }}>
-            <AlertCircle size={16} />
+            <AlertCircle size={15} />
             <span>{formError || authError}</span>
           </div>
         )}
@@ -94,23 +107,25 @@ const AuthPage = () => {
         <form onSubmit={handleSubmit}>
           {!isLoginMode ? (
             <>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                <div className="form-group">
-                  <label className="form-label">Nom *</label>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.6rem 0.75rem', marginBottom: '0.6rem' }}>
+                <div className="form-group" style={{ marginBottom: 0 }}>
+                  <label className="form-label" style={{ fontSize: '0.78rem', marginBottom: '0.2rem' }}>Nom *</label>
                   <input
                     type="text"
                     className="form-input"
+                    style={{ padding: '0.45rem 0.75rem', fontSize: '0.85rem' }}
                     placeholder="Ex: Diallo"
                     value={nom}
                     onChange={(e) => setNom(e.target.value)}
                     required
                   />
                 </div>
-                <div className="form-group">
-                  <label className="form-label">Prénom *</label>
+                <div className="form-group" style={{ marginBottom: 0 }}>
+                  <label className="form-label" style={{ fontSize: '0.78rem', marginBottom: '0.2rem' }}>Prénom *</label>
                   <input
                     type="text"
                     className="form-input"
+                    style={{ padding: '0.45rem 0.75rem', fontSize: '0.85rem' }}
                     placeholder="Ex: Amadou"
                     value={prenom}
                     onChange={(e) => setPrenom(e.target.value)}
@@ -119,59 +134,65 @@ const AuthPage = () => {
                 </div>
               </div>
 
-              <div className="form-group">
-                <label className="form-label">Pseudo (Facultatif)</label>
+              <div className="form-group" style={{ marginBottom: '0.6rem' }}>
+                <label className="form-label" style={{ fontSize: '0.78rem', marginBottom: '0.2rem' }}>Pseudo (Facultatif)</label>
                 <input
                   type="text"
                   className="form-input"
+                  style={{ padding: '0.45rem 0.75rem', fontSize: '0.85rem' }}
                   placeholder="Ex: admin_amadou"
                   value={pseudo}
                   onChange={(e) => setPseudo(e.target.value)}
                 />
               </div>
 
-              <div className="form-group">
-                <label className="form-label">Mot de passe *</label>
-                <input
-                  type="password"
-                  className="form-input"
-                  placeholder="••••••••"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-              </div>
-
-              <div className="form-group">
-                <label className="form-label">Confirmer le mot de passe *</label>
-                <input
-                  type="password"
-                  className="form-input"
-                  placeholder="••••••••"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  required
-                />
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.6rem 0.75rem', marginBottom: '0.6rem' }}>
+                <div className="form-group" style={{ marginBottom: 0 }}>
+                  <label className="form-label" style={{ fontSize: '0.78rem', marginBottom: '0.2rem' }}>Mot de passe *</label>
+                  <input
+                    type="password"
+                    className="form-input"
+                    style={{ padding: '0.45rem 0.75rem', fontSize: '0.85rem' }}
+                    placeholder="••••••••"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="form-group" style={{ marginBottom: 0 }}>
+                  <label className="form-label" style={{ fontSize: '0.78rem', marginBottom: '0.2rem' }}>Confirmation *</label>
+                  <input
+                    type="password"
+                    className="form-input"
+                    style={{ padding: '0.45rem 0.75rem', fontSize: '0.85rem' }}
+                    placeholder="••••••••"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    required
+                  />
+                </div>
               </div>
             </>
           ) : (
             <>
-              <div className="form-group">
-                <label className="form-label">Identifiant (Nom ou Pseudo)</label>
+              <div className="form-group" style={{ marginBottom: '0.75rem' }}>
+                <label className="form-label" style={{ fontSize: '0.8rem', marginBottom: '0.25rem' }}>Identifiant (Nom ou Pseudo)</label>
                 <input
                   type="text"
                   className="form-input"
+                  style={{ padding: '0.55rem 0.75rem', fontSize: '0.875rem' }}
                   placeholder="Entrez votre Nom ou Pseudo"
                   value={identifier}
                   onChange={(e) => setIdentifier(e.target.value)}
                   required
                 />
               </div>
-              <div className="form-group">
-                <label className="form-label">Mot de passe</label>
+              <div className="form-group" style={{ marginBottom: '0.75rem' }}>
+                <label className="form-label" style={{ fontSize: '0.8rem', marginBottom: '0.25rem' }}>Mot de passe</label>
                 <input
                   type="password"
                   className="form-input"
+                  style={{ padding: '0.55rem 0.75rem', fontSize: '0.875rem' }}
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -185,14 +206,20 @@ const AuthPage = () => {
             type="submit"
             className="btn-primary"
             disabled={loading}
-            style={{ width: '100%', justifyContent: 'center', marginTop: '1rem', padding: '0.85rem' }}
+            style={{
+              width: '100%',
+              justifyContent: 'center',
+              marginTop: '0.6rem',
+              padding: '0.65rem 1rem',
+              fontSize: '0.875rem'
+            }}
           >
             <span>{loading ? 'Traitement en cours...' : (isLoginMode ? 'Se Connecter' : 'Créer le Compte Admin')}</span>
-            <ArrowRight size={18} />
+            <ArrowRight size={16} style={{ marginLeft: '0.35rem' }} />
           </button>
         </form>
 
-        <div className="auth-toggle">
+        <div className="auth-toggle" style={{ marginTop: '0.75rem', fontSize: '0.8rem' }}>
           {isLoginMode ? (
             <p>
               Pas encore de compte ?
