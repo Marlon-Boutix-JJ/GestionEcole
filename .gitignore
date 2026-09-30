@@ -1,0 +1,5 @@
+node_modules/
+*.zip
+backend/node.exe
+Gestion_Eleves_Client_Pack/backend/node.exe
+.DS_Store

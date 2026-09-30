@@ -6,10 +6,14 @@ echo =========================================================
 echo       LANCEMENT DE L'APPLICATION GESTION ELEVES PRO
 echo =========================================================
 echo.
-echo [1/2] Démarrage du serveur backend...
+echo [1/2] Démarrage du serveur backend autonome...
 cd /d "%~dp0"
 
-start /b cmd /c "cd backend && node server.js > NUL 2>&1"
+set "NODE_BIN=node"
+if exist "%~dp0backend\node.exe" set "NODE_BIN=%~dp0backend\node.exe"
+if exist "%~dp0node.exe" set "NODE_BIN=%~dp0node.exe"
+
+start /b cmd /c "cd backend && "%NODE_BIN%" server.js > NUL 2>&1"
 
 timeout /t 2 /nobreak > NUL
 
