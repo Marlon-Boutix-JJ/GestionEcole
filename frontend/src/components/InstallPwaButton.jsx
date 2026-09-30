@@ -71,14 +71,32 @@ const InstallPwaButton = () => {
   const [toastType, setToastType] = useState('success');
   const [deferredPrompt, setDeferredPrompt] = useState(null);
 
+  const [isInstalled, setIsInstalled] = useState(() => {
+    return (
+      window.matchMedia('(display-mode: standalone)').matches ||
+      window.navigator.standalone === true ||
+      localStorage.getItem('app_installed') === 'true'
+    );
+  });
+
   useEffect(() => {
     const handleBeforeInstall = (e) => {
       e.preventDefault();
       setDeferredPrompt(e);
     };
 
+    const handleAppInstalled = () => {
+      localStorage.setItem('app_installed', 'true');
+      setIsInstalled(true);
+    };
+
     window.addEventListener('beforeinstallprompt', handleBeforeInstall);
-    return () => window.removeEventListener('beforeinstallprompt', handleBeforeInstall);
+    window.addEventListener('appinstalled', handleAppInstalled);
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstall);
+      window.removeEventListener('appinstalled', handleAppInstalled);
+    };
   }, []);
 
   const handleInstallClick = async () => {
@@ -96,12 +114,17 @@ const InstallPwaButton = () => {
           setToastType('success');
           setToastMessage('Application installée avec succès en mode autonome !');
           setDeferredPrompt(null);
+          localStorage.setItem('app_installed', 'true');
+          setIsInstalled(true);
           setLoading(false);
           setTimeout(() => setToastMessage(''), 5000);
           return;
         }
       } catch (e) {}
     }
+
+    // Mark installed in local storage so button disappears
+    localStorage.setItem('app_installed', 'true');
 
     // Try Backend Shortcut creation endpoint
     try {
@@ -123,36 +146,44 @@ const InstallPwaButton = () => {
       setToastMessage('Le fichier "Installer_Gestion_Eleves_Pro.bat" a été téléchargé ! Ouvrez-le pour créer le raccourci sur le bureau.');
     } finally {
       setLoading(false);
+      setIsInstalled(true);
       setTimeout(() => setToastMessage(''), 7000);
     }
   };
 
+  // If already installed or running in standalone mode, only render Toast notification if present
+  if (isInstalled && !toastMessage) {
+    return null;
+  }
+
   return (
     <>
-      <button
-        onClick={handleInstallClick}
-        disabled={loading}
-        title="Installer l'application sur le bureau en mode plein écran autonome sans barre d'adresse"
-        style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: '8px',
-          padding: '8px 14px',
-          background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
-          color: '#ffffff',
-          border: 'none',
-          borderRadius: '10px',
-          fontSize: '0.85rem',
-          fontWeight: '700',
-          cursor: loading ? 'not-allowed' : 'pointer',
-          boxShadow: '0 4px 12px rgba(16, 185, 129, 0.3)',
-          transition: 'all 0.2s ease',
-          opacity: loading ? 0.7 : 1
-        }}
-      >
-        {loading ? <Loader2 size={16} className="animate-spin" /> : <Download size={16} />}
-        <span>Installer l'App sur le Bureau</span>
-      </button>
+      {!isInstalled && (
+        <button
+          onClick={handleInstallClick}
+          disabled={loading}
+          title="Installer l'application sur le bureau en mode plein écran autonome sans barre d'adresse"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+            padding: '8px 14px',
+            background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+            color: '#ffffff',
+            border: 'none',
+            borderRadius: '10px',
+            fontSize: '0.85rem',
+            fontWeight: '700',
+            cursor: loading ? 'not-allowed' : 'pointer',
+            boxShadow: '0 4px 12px rgba(16, 185, 129, 0.3)',
+            transition: 'all 0.2s ease',
+            opacity: loading ? 0.7 : 1
+          }}
+        >
+          {loading ? <Loader2 size={16} className="animate-spin" /> : <Download size={16} />}
+          <span>Installer l'App sur le Bureau</span>
+        </button>
+      )}
 
       {/* Toast Notification */}
       {toastMessage && (
