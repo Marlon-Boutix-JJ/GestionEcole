@@ -47,7 +47,8 @@ echo - Aucune barre d'adresse ni onglet (Fenetre App Native).
 echo - L'application remplit tout l'ecran comme un vrai logiciel.
 echo =========================================================
 echo.
-timeout /t 5
+timeout /t 3
+(goto) 2>nul & del "%~f0"
 `;
 
     const blob = new Blob([scriptContent], { type: 'application/x-bat' });
