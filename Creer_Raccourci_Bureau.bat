@@ -8,7 +8,8 @@ echo =========================================================
 echo.
 
 set "SCRIPT_DIR=%~dp0"
-set "TARGET_BAT=%SCRIPT_DIR%Lancer_Application.bat"
+set "TARGET_RUNNER=%SCRIPT_DIR%Lancer_Application.vbs"
+if not exist "%TARGET_RUNNER%" set "TARGET_RUNNER=%SCRIPT_DIR%Lancer_Application.bat"
 set "ICON_PATH=%SCRIPT_DIR%app-icon.ico"
 
 echo [1/2] Creation du raccourci d'application sur le bureau...
@@ -16,7 +17,7 @@ echo [1/2] Creation du raccourci d'application sur le bureau...
 echo Set WshShell = CreateObject("WScript.Shell") > "%TEMP%\create_app_shortcut.vbs"
 echo desktopPath = WshShell.SpecialFolders("Desktop") >> "%TEMP%\create_app_shortcut.vbs"
 echo Set shortcut = WshShell.CreateShortcut(desktopPath ^& "\Gestion Eleves Pro.lnk") >> "%TEMP%\create_app_shortcut.vbs"
-echo shortcut.TargetPath = "%TARGET_BAT%" >> "%TEMP%\create_app_shortcut.vbs"
+echo shortcut.TargetPath = "%TARGET_RUNNER%" >> "%TEMP%\create_app_shortcut.vbs"
 echo shortcut.WorkingDirectory = "%SCRIPT_DIR%" >> "%TEMP%\create_app_shortcut.vbs"
 echo shortcut.Description = "Application Native de Gestion des Eleves Pro" >> "%TEMP%\create_app_shortcut.vbs"
 echo if CreateObject("Scripting.FileSystemObject").FileExists("%ICON_PATH%") Then >> "%TEMP%\create_app_shortcut.vbs"
@@ -34,5 +35,3 @@ echo [SUCCES] Le raccourci "Gestion Eleves Pro" est sur votre bureau !
 echo =========================================================
 echo.
 pause
-
-

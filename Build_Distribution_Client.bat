@@ -24,6 +24,7 @@ xcopy "frontend\dist" "Gestion_Eleves_Client_Pack\frontend\dist" /E /I /H /Y /Q
 if exist "Gestion_Eleves_Client_Pack\backend\license.json" del /f /q "Gestion_Eleves_Client_Pack\backend\license.json"
 if exist "C:\NodeJS\node.exe" copy "C:\NodeJS\node.exe" "Gestion_Eleves_Client_Pack\backend\node.exe" /Y
 copy "Lancer_Application.bat" "Gestion_Eleves_Client_Pack\" /Y
+if exist "Lancer_Application.vbs" copy "Lancer_Application.vbs" "Gestion_Eleves_Client_Pack\" /Y
 copy "Creer_Raccourci_Bureau.bat" "Gestion_Eleves_Client_Pack\" /Y
 if exist "app-icon.ico" copy "app-icon.ico" "Gestion_Eleves_Client_Pack\" /Y
 
