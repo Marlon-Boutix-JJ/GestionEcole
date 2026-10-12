@@ -9,6 +9,9 @@ import {
   FlaskConical, 
   BookOpen, 
   Briefcase,
+  Atom,
+  Microscope,
+  BookText,
   Clock,
   MapPin,
   UserCheck,
@@ -26,8 +29,10 @@ const SchedulePage = ({ initialClass = '3ème' }) => {
   const classesList = [
     { name: '3ème', icon: GraduationCap },
     { name: 'Terminale S', icon: FlaskConical },
-    { name: 'Terminale L', icon: BookOpen },
-    { name: 'Terminale OSE', icon: Briefcase }
+    { name: 'Terminale A1', icon: BookOpen },
+    { name: 'Terminale A2', icon: BookText },
+    { name: 'Terminale D', icon: Microscope },
+    { name: 'Terminale C', icon: Atom }
   ];
 
   const daysOfWeek = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];

@@ -249,10 +249,12 @@ const TeacherPage = () => {
   const [matieresInput, setMatieresInput] = useState('Mathématiques');
   const [tarif3eme, setTarif3eme] = useState(12000);
   const [tarifTermS, setTarifTermS] = useState(20000);
-  const [tarifTermL, setTarifTermL] = useState(15000);
-  const [tarifTermOSE, setTarifTermOSE] = useState(18000);
+  const [tarifTermA1, setTarifTermA1] = useState(15000);
+  const [tarifTermA2, setTarifTermA2] = useState(15000);
+  const [tarifTermD, setTarifTermD] = useState(18000);
+  const [tarifTermC, setTarifTermC] = useState(22000);
 
-  const classesList = ['3ème', 'Terminale S', 'Terminale L', 'Terminale OSE'];
+  const classesList = ['3ème', 'Terminale S', 'Terminale A1', 'Terminale A2', 'Terminale D', 'Terminale C'];
 
   const fetchTeachers = async () => {
     try {
@@ -301,8 +303,10 @@ const TeacherPage = () => {
     const tarifsHoraires = [
       { classe: '3ème', tarifHeure: Number(tarif3eme) || 12000 },
       { classe: 'Terminale S', tarifHeure: Number(tarifTermS) || 20000 },
-      { classe: 'Terminale L', tarifHeure: Number(tarifTermL) || 15000 },
-      { classe: 'Terminale OSE', tarifHeure: Number(tarifTermOSE) || 18000 }
+      { classe: 'Terminale A1', tarifHeure: Number(tarifTermA1) || 15000 },
+      { classe: 'Terminale A2', tarifHeure: Number(tarifTermA2) || 15000 },
+      { classe: 'Terminale D', tarifHeure: Number(tarifTermD) || 18000 },
+      { classe: 'Terminale C', tarifHeure: Number(tarifTermC) || 22000 }
     ];
 
     try {
@@ -1174,9 +1178,11 @@ const TeacherPage = () => {
                     <th>Téléphone</th>
                     <th>Matières Enseignées</th>
                     <th style={{ textAlign: 'center', color: 'var(--primary)' }}>Tarif 3ème</th>
-                    <th style={{ textAlign: 'center', color: 'var(--primary)' }}>Tarif Terminale S</th>
-                    <th style={{ textAlign: 'center', color: 'var(--primary)' }}>Tarif Terminale L</th>
-                    <th style={{ textAlign: 'center', color: 'var(--primary)' }}>Tarif Terminale OSE</th>
+                    <th style={{ textAlign: 'center', color: 'var(--primary)' }}>Tarif Term S</th>
+                    <th style={{ textAlign: 'center', color: 'var(--primary)' }}>Tarif Term A1</th>
+                    <th style={{ textAlign: 'center', color: 'var(--primary)' }}>Tarif Term A2</th>
+                    <th style={{ textAlign: 'center', color: 'var(--primary)' }}>Tarif Term D</th>
+                    <th style={{ textAlign: 'center', color: 'var(--primary)' }}>Tarif Term C</th>
                     <th style={{ textAlign: 'right' }}>Action</th>
                   </tr>
                 </thead>
@@ -1201,8 +1207,10 @@ const TeacherPage = () => {
                         </td>
                         <td style={{ textAlign: 'center', fontWeight: '800', color: 'var(--primary)' }}>{getRate('3ème')}</td>
                         <td style={{ textAlign: 'center', fontWeight: '800', color: 'var(--primary)' }}>{getRate('Terminale S')}</td>
-                        <td style={{ textAlign: 'center', fontWeight: '800', color: 'var(--primary)' }}>{getRate('Terminale L')}</td>
-                        <td style={{ textAlign: 'center', fontWeight: '800', color: 'var(--primary)' }}>{getRate('Terminale OSE')}</td>
+                        <td style={{ textAlign: 'center', fontWeight: '800', color: 'var(--primary)' }}>{getRate('Terminale A1')}</td>
+                        <td style={{ textAlign: 'center', fontWeight: '800', color: 'var(--primary)' }}>{getRate('Terminale A2')}</td>
+                        <td style={{ textAlign: 'center', fontWeight: '800', color: 'var(--primary)' }}>{getRate('Terminale D')}</td>
+                        <td style={{ textAlign: 'center', fontWeight: '800', color: 'var(--primary)' }}>{getRate('Terminale C')}</td>
                         <td style={{ textAlign: 'right' }}>
                           <div style={{ display: 'flex', gap: '0.4rem', justifyContent: 'flex-end' }}>
                             <button
@@ -1567,7 +1575,7 @@ const TeacherPage = () => {
                   Tarifs Horaires Divisés par Classe (en Ariary / heure)
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.75rem' }}>
                   <div className="form-group">
                     <label className="form-label">Tarif Classe 3ème</label>
                     <input type="number" className="form-input" value={tarif3eme} onChange={(e) => setTarif3eme(e.target.value)} required />
@@ -1577,12 +1585,20 @@ const TeacherPage = () => {
                     <input type="number" className="form-input" value={tarifTermS} onChange={(e) => setTarifTermS(e.target.value)} required />
                   </div>
                   <div className="form-group">
-                    <label className="form-label">Tarif Terminale L</label>
-                    <input type="number" className="form-input" value={tarifTermL} onChange={(e) => setTarifTermL(e.target.value)} required />
+                    <label className="form-label">Tarif Terminale A1</label>
+                    <input type="number" className="form-input" value={tarifTermA1} onChange={(e) => setTarifTermA1(e.target.value)} required />
                   </div>
                   <div className="form-group">
-                    <label className="form-label">Tarif Terminale OSE</label>
-                    <input type="number" className="form-input" value={tarifTermOSE} onChange={(e) => setTarifTermOSE(e.target.value)} required />
+                    <label className="form-label">Tarif Terminale A2</label>
+                    <input type="number" className="form-input" value={tarifTermA2} onChange={(e) => setTarifTermA2(e.target.value)} required />
+                  </div>
+                  <div className="form-group">
+                    <label className="form-label">Tarif Terminale D</label>
+                    <input type="number" className="form-input" value={tarifTermD} onChange={(e) => setTarifTermD(e.target.value)} required />
+                  </div>
+                  <div className="form-group">
+                    <label className="form-label">Tarif Terminale C</label>
+                    <input type="number" className="form-input" value={tarifTermC} onChange={(e) => setTarifTermC(e.target.value)} required />
                   </div>
                 </div>
               </div>

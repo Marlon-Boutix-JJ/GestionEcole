@@ -11,7 +11,10 @@ import {
   GraduationCap,
   FlaskConical,
   BookOpen,
-  Briefcase
+  Briefcase,
+  Atom,
+  Microscope,
+  BookText
 } from 'lucide-react';
 
 const BulletinPage = () => {
@@ -25,8 +28,10 @@ const BulletinPage = () => {
   const classesList = [
     { name: '3ème', icon: GraduationCap },
     { name: 'Terminale S', icon: FlaskConical },
-    { name: 'Terminale L', icon: BookOpen },
-    { name: 'Terminale OSE', icon: Briefcase }
+    { name: 'Terminale A1', icon: BookOpen },
+    { name: 'Terminale A2', icon: BookText },
+    { name: 'Terminale D', icon: Microscope },
+    { name: 'Terminale C', icon: Atom }
   ];
 
   const fetchBulletins = async () => {

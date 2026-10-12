@@ -20,8 +20,10 @@ const generateDefaultCreneaux = (classe) => {
   const matieresByClass = {
     '3ème': ['Mathématiques', 'Français', 'Histoire-Géo', 'SVT', 'Physique-Chimie', 'Anglais', 'EPS'],
     'Terminale S': ['Mathématiques', 'Physique-Chimie', 'SVT', 'Philosophie', 'Anglais', 'Informatique', 'EPS'],
-    'Terminale L': ['Philosophie', 'Français', 'Histoire-Géo', 'Anglais', 'Espagnol', 'Littérature', 'Maths'],
-    'Terminale OSE': ['Économie', 'Comptabilité', 'Maths Appliquées', 'Droit', 'Anglais Comm', 'Management', 'EPS']
+    'Terminale A1': ['Philosophie', 'Français', 'Histoire-Géo', 'Anglais', 'Littérature', 'Maths', 'EPS'],
+    'Terminale A2': ['Philosophie', 'Français', 'Histoire-Géo', 'Anglais', 'Espagnol / Arabe', 'Littérature', 'EPS'],
+    'Terminale D': ['SVT', 'Mathématiques', 'Physique-Chimie', 'Français', 'Anglais', 'Philosophie', 'EPS'],
+    'Terminale C': ['Mathématiques', 'Physique-Chimie', 'SVT', 'Français', 'Anglais', 'Philosophie', 'EPS']
   };
 
   const matList = matieresByClass[classe] || ['Mathématiques', 'Français', 'Histoire-Géo', 'Anglais'];

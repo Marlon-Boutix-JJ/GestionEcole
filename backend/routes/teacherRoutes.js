@@ -29,8 +29,10 @@ router.post('/', async (req, res) => {
     const defaultTarifs = [
       { classe: '3ème', tarifHeure: 15000 },
       { classe: 'Terminale S', tarifHeure: 20000 },
-      { classe: 'Terminale L', tarifHeure: 18000 },
-      { classe: 'Terminale OSE', tarifHeure: 18000 }
+      { classe: 'Terminale A1', tarifHeure: 18000 },
+      { classe: 'Terminale A2', tarifHeure: 18000 },
+      { classe: 'Terminale D', tarifHeure: 20000 },
+      { classe: 'Terminale C', tarifHeure: 22000 }
     ];
 
     const teacher = new Teacher({

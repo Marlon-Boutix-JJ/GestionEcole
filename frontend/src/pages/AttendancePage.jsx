@@ -30,7 +30,7 @@ const AttendancePage = () => {
   const [justifie, setJustifie] = useState(false);
   const [motif, setMotif] = useState('');
 
-  const classesList = ['Toutes', '3ème', 'Terminale S', 'Terminale L', 'Terminale OSE'];
+  const classesList = ['Toutes', '3ème', 'Terminale S', 'Terminale A1', 'Terminale A2', 'Terminale D', 'Terminale C'];
 
   const fetchRecords = async () => {
     setLoading(true);

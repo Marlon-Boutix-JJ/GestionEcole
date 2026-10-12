@@ -38,10 +38,14 @@ const AppContent = () => {
         return <ClassPage classKey="3eme" className="3ème" />;
       case 'terminale_s':
         return <ClassPage classKey="terminale_s" className="Terminale S" />;
-      case 'terminale_l':
-        return <ClassPage classKey="terminale_l" className="Terminale L" />;
-      case 'terminale_ose':
-        return <ClassPage classKey="terminale_ose" className="Terminale OSE" />;
+      case 'terminale_a1':
+        return <ClassPage classKey="terminale_a1" className="Terminale A1" />;
+      case 'terminale_a2':
+        return <ClassPage classKey="terminale_a2" className="Terminale A2" />;
+      case 'terminale_d':
+        return <ClassPage classKey="terminale_d" className="Terminale D" />;
+      case 'terminale_c':
+        return <ClassPage classKey="terminale_c" className="Terminale C" />;
       case 'teachers':
         return <TeacherPage />;
       case 'ecolage':

@@ -11,7 +11,7 @@ const teacherSchema = new mongoose.Schema(
     // Tarif horaire individualisé par classe (en Ariary)
     tarifsHoraires: [
       {
-        classe: { type: String, required: true }, // '3ème', 'Terminale S', 'Terminale L', 'Terminale OSE'
+        classe: { type: String, required: true }, // '3ème', 'Terminale S', 'Terminale A1', 'Terminale A2', 'Terminale D', 'Terminale C'
         tarifHeure: { type: Number, required: true, default: 15000 } // Tarif en Ariary / heure
       }
     ],

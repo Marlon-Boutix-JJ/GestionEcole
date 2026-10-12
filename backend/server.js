@@ -153,11 +153,11 @@ const seedInitialData = async () => {
         { nom: 'Fall', prenom: 'Ousmane', matricule: 'ELE-2026-004', classe: 'Terminale S', dateNaissance: '2006-11-05', genre: 'M', contactParent: '+221 77 444 33 22', adresse: 'Maristes, Dakar' },
         { nom: 'Ba', prenom: 'Fatoumata', matricule: 'ELE-2026-005', classe: 'Terminale S', dateNaissance: '2007-01-30', genre: 'F', contactParent: '+221 76 555 44 11', adresse: 'Almadies, Dakar' },
         { nom: 'Kane', prenom: 'Cheikh', matricule: 'ELE-2026-006', classe: 'Terminale S', dateNaissance: '2006-09-14', genre: 'M', contactParent: '+221 77 111 22 33', adresse: 'Grand Yoff, Dakar' },
-        { nom: 'Cissé', prenom: 'Mariama', matricule: 'ELE-2026-007', classe: 'Terminale L', dateNaissance: '2006-07-22', genre: 'F', contactParent: '+221 78 888 99 00', adresse: 'Point E, Dakar' },
-        { nom: 'Sarr', prenom: 'Babacar', matricule: 'ELE-2026-008', classe: 'Terminale L', dateNaissance: '2007-03-10', genre: 'M', contactParent: '+221 70 222 33 44', adresse: 'Ouakam, Dakar' },
-        { nom: 'Diallo', prenom: 'Khadija', matricule: 'ELE-2026-009', classe: 'Terminale L', dateNaissance: '2006-12-01', genre: 'F', contactParent: '+221 77 333 44 55', adresse: 'Gédiawaye, Dakar' },
-        { nom: 'Mbodj', prenom: 'Mamadou', matricule: 'ELE-2026-010', classe: 'Terminale OSE', dateNaissance: '2006-05-18', genre: 'M', contactParent: '+221 77 999 00 11', adresse: 'Ngor, Dakar' },
-        { nom: 'Ndao', prenom: 'Aminata', matricule: 'ELE-2026-011', classe: 'Terminale OSE', dateNaissance: '2007-02-11', genre: 'F', contactParent: '+221 78 555 66 77', adresse: 'Yoff, Dakar' }
+        { nom: 'Cissé', prenom: 'Mariama', matricule: 'ELE-2026-007', classe: 'Terminale A1', dateNaissance: '2006-07-22', genre: 'F', contactParent: '+221 78 888 99 00', adresse: 'Point E, Dakar' },
+        { nom: 'Sarr', prenom: 'Babacar', matricule: 'ELE-2026-008', classe: 'Terminale A2', dateNaissance: '2007-03-10', genre: 'M', contactParent: '+221 70 222 33 44', adresse: 'Ouakam, Dakar' },
+        { nom: 'Diallo', prenom: 'Khadija', matricule: 'ELE-2026-009', classe: 'Terminale D', dateNaissance: '2006-12-01', genre: 'F', contactParent: '+221 77 333 44 55', adresse: 'Gédiawaye, Dakar' },
+        { nom: 'Mbodj', prenom: 'Mamadou', matricule: 'ELE-2026-010', classe: 'Terminale C', dateNaissance: '2006-05-18', genre: 'M', contactParent: '+221 77 999 00 11', adresse: 'Ngor, Dakar' },
+        { nom: 'Ndao', prenom: 'Aminata', matricule: 'ELE-2026-011', classe: 'Terminale D', dateNaissance: '2007-02-11', genre: 'F', contactParent: '+221 78 555 66 77', adresse: 'Yoff, Dakar' }
       ];
 
       for (let sData of sampleStudents) {
@@ -198,9 +198,9 @@ const seedInitialData = async () => {
         });
 
         // Bulletin seed
-        const isSci = student.classe === 'Terminale S';
-        const isLit = student.classe === 'Terminale L';
-        const isOse = student.classe === 'Terminale OSE';
+        const isSci = student.classe === 'Terminale S' || student.classe === 'Terminale C';
+        const isD = student.classe === 'Terminale D';
+        const isLit = student.classe === 'Terminale A1' || student.classe === 'Terminale A2';
 
         const matieres = isSci ? [
           { nom: 'Mathématiques', note: 16.5, coef: 5, appreciation: 'Excellent esprit d\'analyse' },
@@ -208,18 +208,18 @@ const seedInitialData = async () => {
           { nom: 'SVT', note: 14.5, coef: 3, appreciation: 'Régulier et attentif' },
           { nom: 'Français', note: 13, coef: 2, appreciation: 'Satisfaisant' },
           { nom: 'Anglais', note: 14, coef: 2, appreciation: 'Bonne participation' }
+        ] : isD ? [
+          { nom: 'SVT', note: 16, coef: 5, appreciation: 'Excellente maîtrise des sciences de la vie' },
+          { nom: 'Mathématiques', note: 14.5, coef: 4, appreciation: 'Bons résultats' },
+          { nom: 'Physique-Chimie', note: 14, coef: 4, appreciation: 'Bon niveau scientifique' },
+          { nom: 'Français', note: 13.5, coef: 2, appreciation: 'Régulier' },
+          { nom: 'Philosophie', note: 14, coef: 2, appreciation: 'Bonne réflexion' }
         ] : isLit ? [
           { nom: 'Français / Philosophie', note: 17, coef: 5, appreciation: 'Réflexion brillante et synthétique' },
           { nom: 'Histoire-Géo', note: 15.5, coef: 4, appreciation: 'Très bonne maîtrise' },
           { nom: 'Anglais', note: 16, coef: 3, appreciation: 'Aisance orale remarquable' },
-          { nom: 'Espagnol / Arabe', note: 14, coef: 2, appreciation: 'Bon niveau' },
+          { nom: 'Espagnol / Littérature', note: 14, coef: 3, appreciation: 'Bon niveau' },
           { nom: 'Mathématiques', note: 12, coef: 2, appreciation: 'Efforts constatés' }
-        ] : isOse ? [
-          { nom: 'Économie & Organisation', note: 16, coef: 5, appreciation: 'Excellente vision stratégique' },
-          { nom: 'Comptabilité & Gestion', note: 15.5, coef: 4, appreciation: 'Rigueur financière remarquable' },
-          { nom: 'Mathématiques Appliquées', note: 14, coef: 3, appreciation: 'Bons résultats' },
-          { nom: 'Droit & Législation', note: 15, coef: 3, appreciation: 'Analyse pertinente' },
-          { nom: 'Anglais Commercial', note: 14.5, coef: 2, appreciation: 'Très bonne pratique' }
         ] : [
           { nom: 'Mathématiques', note: 14, coef: 3, appreciation: 'Bon élève' },
           { nom: 'Français', note: 15, coef: 3, appreciation: 'Très bien' },
@@ -358,8 +358,10 @@ const seedInitialData = async () => {
         tarifsHoraires: [
           { classe: '3ème', tarifHeure: 12000 },
           { classe: 'Terminale S', tarifHeure: 20000 },
-          { classe: 'Terminale L', tarifHeure: 15000 },
-          { classe: 'Terminale OSE', tarifHeure: 18000 }
+          { classe: 'Terminale A1', tarifHeure: 15000 },
+          { classe: 'Terminale A2', tarifHeure: 15000 },
+          { classe: 'Terminale D', tarifHeure: 18000 },
+          { classe: 'Terminale C', tarifHeure: 22000 }
         ]
       });
 
@@ -372,8 +374,10 @@ const seedInitialData = async () => {
         tarifsHoraires: [
           { classe: '3ème', tarifHeure: 12000 },
           { classe: 'Terminale S', tarifHeure: 15000 },
-          { classe: 'Terminale L', tarifHeure: 22000 },
-          { classe: 'Terminale OSE', tarifHeure: 18000 }
+          { classe: 'Terminale A1', tarifHeure: 18000 },
+          { classe: 'Terminale A2', tarifHeure: 18000 },
+          { classe: 'Terminale D', tarifHeure: 20000 },
+          { classe: 'Terminale C', tarifHeure: 22000 }
         ]
       });
 
@@ -411,14 +415,14 @@ const seedInitialData = async () => {
       await TeacherShift.create({
         teacher: profFr._id,
         teacherName: `${profFr.nom} ${profFr.prenom}`,
-        classe: 'Terminale L',
+        classe: 'Terminale A1',
         matiere: 'Philosophie',
         dateShift: new Date(Date.now() - 86400000 * 1),
         heureDebut: '14:30',
         heureFin: '16:30',
         heuresEffectuees: 2,
-        tarifHoraireApplique: 22000,
-        salaireTotal: 44000,
+        tarifHoraireApplique: 18000,
+        salaireTotal: 36000,
         statutPaiement: 'En attente',
         remarque: 'Dissertation philosophique : La conscience'
       });

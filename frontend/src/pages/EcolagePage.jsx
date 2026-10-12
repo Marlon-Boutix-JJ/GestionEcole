@@ -11,6 +11,9 @@ import {
   FlaskConical, 
   BookOpen, 
   Briefcase,
+  Atom,
+  Microscope,
+  BookText,
   Check,
   CheckSquare
 } from 'lucide-react';
@@ -39,7 +42,7 @@ const EcolagePage = () => {
 
   const [tarifMensuel, setTarifMensuel] = useState(150000); // Prix des écolages mensuel modifiable
 
-  const classesList = ['3ème', 'Terminale S', 'Terminale L', 'Terminale OSE'];
+  const classesList = ['3ème', 'Terminale S', 'Terminale A1', 'Terminale A2', 'Terminale D', 'Terminale C'];
 
   const fetchPayments = async () => {
     setLoading(true);
@@ -172,7 +175,9 @@ const EcolagePage = () => {
   const getClassIcon = (cls) => {
     if (cls.includes('3ème')) return GraduationCap;
     if (cls.includes('Terminale S')) return FlaskConical;
-    if (cls.includes('Terminale OSE')) return Briefcase;
+    if (cls.includes('Terminale C')) return Atom;
+    if (cls.includes('Terminale D')) return Microscope;
+    if (cls.includes('Terminale A2')) return BookText;
     return BookOpen;
   };
 

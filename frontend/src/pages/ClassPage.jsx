@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { UserPlus, Trash2, GraduationCap, FlaskConical, BookOpen, Briefcase, Eye, X, FileSpreadsheet, UploadCloud, AlertCircle, CheckCircle, Printer } from 'lucide-react';
+import { UserPlus, Trash2, GraduationCap, FlaskConical, BookOpen, Briefcase, Atom, Microscope, BookText, Eye, X, FileSpreadsheet, UploadCloud, AlertCircle, CheckCircle, Printer } from 'lucide-react';
 import * as XLSX from 'xlsx';
 import StudentProfileModal from '../components/StudentProfileModal';
 
@@ -178,8 +178,12 @@ const ClassPage = ({ classKey, className }) => {
     ? GraduationCap 
     : className.includes('Terminale S') 
     ? FlaskConical 
-    : className.includes('Terminale OSE') 
-    ? Briefcase 
+    : className.includes('Terminale C') 
+    ? Atom 
+    : className.includes('Terminale D') 
+    ? Microscope 
+    : className.includes('Terminale A2')
+    ? BookText
     : BookOpen;
 
   return (

@@ -7,7 +7,7 @@ const teacherShiftSchema = new mongoose.Schema(
     classe: { 
       type: String, 
       required: true,
-      enum: ['3ème', 'Terminale S', 'Terminale L', 'Terminale OSE']
+      enum: ['3ème', 'Terminale S', 'Terminale A1', 'Terminale A2', 'Terminale D', 'Terminale C']
     },
     matiere: { type: String, required: true },
     dateShift: { type: Date, default: Date.now },

@@ -8,7 +8,7 @@ const studentSchema = new mongoose.Schema(
     classe: {
       type: String,
       required: true,
-      enum: ['3ème', 'Terminale S', 'Terminale L', 'Terminale OSE'],
+      enum: ['3ème', 'Terminale S', 'Terminale A1', 'Terminale A2', 'Terminale D', 'Terminale C'],
     },
     dateNaissance: { type: String, default: '2008-05-15' },
     genre: { type: String, enum: ['M', 'F'], default: 'M' },
