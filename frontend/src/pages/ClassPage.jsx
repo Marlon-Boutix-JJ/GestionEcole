@@ -191,12 +191,10 @@ const ClassPage = ({ classKey, className }) => {
       {/* SECTION DOCUMENT D'IMPRESSION (IMPRESSION PAR DÉFAUT CACHÉE SUR ÉCRAN) */}
       <div className="print-only">
         <div className="print-header">
-          <h2>RÉPUBLIQUE DU SÉNÉGAL</h2>
-          <h3>MINISTÈRE DE L'ÉDUCATION NATIONALE</h3>
-          <h2 style={{ marginTop: '10px', textDecoration: 'underline' }}>
-            LISTE OFFICIELLE DES ÉLÈVES — CLASSE DE {className.toUpperCase()}
+          <h2 style={{ textDecoration: 'underline' }}>
+            Liste des Élèves de la Classe de {className.toUpperCase()}
           </h2>
-          <p>Année Scolaire : 2025 - 2026 | Effectif Total : {students.length} Élève(s) | Date d'édition : {new Date().toLocaleDateString('fr-FR')}</p>
+          <p>Effectif Total : {students.length} Élève(s) &nbsp;|&nbsp; Date d'édition : {new Date().toLocaleDateString('fr-FR')}</p>
         </div>
 
         <table className="custom-table">
@@ -204,12 +202,8 @@ const ClassPage = ({ classKey, className }) => {
             <tr>
               <th style={{ width: '40px' }}>N°</th>
               <th>Matricule</th>
-              <th>Nom</th>
-              <th>Prénom</th>
-              <th style={{ width: '50px' }}>Sexe</th>
-              <th>Date de Naissance</th>
-              <th>Contact Parent</th>
-              <th>Adresse</th>
+              <th>Nom &amp; Prénom</th>
+              <th>Classe</th>
             </tr>
           </thead>
           <tbody>
@@ -217,27 +211,12 @@ const ClassPage = ({ classKey, className }) => {
               <tr key={st._id || index}>
                 <td style={{ textAlign: 'center', fontWeight: 'bold' }}>{index + 1}</td>
                 <td style={{ fontWeight: 'bold' }}>{st.matricule}</td>
-                <td style={{ fontWeight: 'bold' }}>{st.nom}</td>
-                <td>{st.prenom}</td>
-                <td style={{ textAlign: 'center' }}>{st.genre || 'M'}</td>
-                <td>{st.dateNaissance ? new Date(st.dateNaissance).toLocaleDateString('fr-FR') : '—'}</td>
-                <td>{st.contactParent || '—'}</td>
-                <td>{st.adresse || 'Dakar'}</td>
+                <td style={{ fontWeight: 'bold' }}>{st.nom} {st.prenom}</td>
+                <td style={{ textAlign: 'center', fontWeight: 'bold' }}>{className}</td>
               </tr>
             ))}
           </tbody>
         </table>
-
-        <div className="print-footer-signatures">
-          <div className="print-signature-box">
-            <div>Le Censeur / Surveillant Général</div>
-            <div className="print-signature-line">Signature & Cachet</div>
-          </div>
-          <div className="print-signature-box">
-            <div>Le Proviseur / Directeur</div>
-            <div className="print-signature-line">Signature & Cachet</div>
-          </div>
-        </div>
       </div>
 
       {/* Header Section sur Écran avec Boutons Inscrire, Importer & Imprimer */}

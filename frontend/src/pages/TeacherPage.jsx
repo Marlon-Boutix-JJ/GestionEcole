@@ -709,27 +709,21 @@ const TeacherPage = () => {
         ) : (
           <div>
             <div className="print-header">
-              <h2>RÉPUBLIQUE DU SÉNÉGAL</h2>
-              <h3>MINISTÈRE DE L'ÉDUCATION NATIONALE</h3>
-              <h2 style={{ marginTop: '10px', textDecoration: 'underline' }}>
-                REGISTRE DES POINTAGES ET SALAIRES DE PAIEMENT DES PROFESSEURS
+              <h2 style={{ textDecoration: 'underline' }}>
+                Liste des Professeurs
               </h2>
-              <p>
-                Année Scolaire : 2025 - 2026 | Total Heures Effectuées : {totalHours} h | Total À Payer : {totalSalary.toLocaleString()} Ariary | Date : {new Date().toLocaleDateString('fr-FR')}
-              </p>
+              <p>Total Heures Effectuées : {totalHours} h &nbsp;|&nbsp; Total À Payer : {totalSalary.toLocaleString()} Ariary &nbsp;|&nbsp; Date : {new Date().toLocaleDateString('fr-FR')}</p>
             </div>
 
             <table className="custom-table">
               <thead>
                 <tr>
                   <th style={{ width: '35px' }}>N°</th>
-                  <th>Date</th>
                   <th>Professeur</th>
                   <th>Classe</th>
                   <th>Matière</th>
                   <th>Créneau Horaire</th>
                   <th>Durée</th>
-                  <th>Tarif/h Classe</th>
                   <th>Salaire Dû</th>
                   <th>Statut</th>
                 </tr>
@@ -738,30 +732,17 @@ const TeacherPage = () => {
                 {shifts.map((s, i) => (
                   <tr key={s._id}>
                     <td style={{ textAlign: 'center' }}>{i + 1}</td>
-                    <td>{new Date(s.dateShift).toLocaleDateString('fr-FR')}</td>
                     <td style={{ fontWeight: 'bold' }}>{s.teacherName}</td>
                     <td style={{ fontWeight: 'bold' }}>{s.classe}</td>
                     <td>{s.matiere}</td>
                     <td>{s.heureDebut} à {s.heureFin}</td>
                     <td style={{ textAlign: 'center', fontWeight: 'bold' }}>{s.heuresEffectuees} h</td>
-                    <td style={{ textAlign: 'right' }}>{s.tarifHoraireApplique ? s.tarifHoraireApplique.toLocaleString() : 0} Ar/h</td>
                     <td style={{ textAlign: 'right', fontWeight: 'bold' }}>{s.salaireTotal ? s.salaireTotal.toLocaleString() : 0} Ar</td>
                     <td style={{ textAlign: 'center', fontWeight: 'bold' }}>{s.statutPaiement.toUpperCase()}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
-
-            <div className="print-footer-signatures">
-              <div className="print-signature-box">
-                <div>Le Gestionnaire Financier</div>
-                <div className="print-signature-line">Signature & Date</div>
-              </div>
-              <div className="print-signature-box">
-                <div>Le Proviseur / Directeur</div>
-                <div className="print-signature-line">Signature & Cachet</div>
-              </div>
-            </div>
           </div>
         )}
       </div>
