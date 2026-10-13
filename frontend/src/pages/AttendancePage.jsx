@@ -147,7 +147,7 @@ const AttendancePage = () => {
             REGISTRE OFFICIEL DES {activeTab === 'Absence' ? 'ABSENCES' : 'RETARDS'} — CLASSE : {selectedClass.toUpperCase()}
           </h2>
           <p>
-            Année Scolaire : 2025 - 2026 | Total : {totalCount} {activeTab === 'Absence' ? 'Absence(s)' : 'Retard(s)'} ({nonJustifies} non justifié(s)) | Date : {new Date().toLocaleDateString('fr-FR')}
+            Année Scolaire : 2026 - 2027 | Total : {totalCount} {activeTab === 'Absence' ? 'Absence(s)' : 'Retard(s)'} ({nonJustifies} non justifié(s)) | Date : {new Date().toLocaleDateString('fr-FR')}
           </p>
         </div>
 

@@ -647,7 +647,7 @@ const TeacherPage = () => {
                 N° {activeReceipt.recuNo}
               </h2>
               <p>
-                Date d'émission : {activeReceipt.datePaiement} | Année Scolaire : 2025 - 2026
+                Date d'émission : {activeReceipt.datePaiement} | Année Scolaire : 2026 - 2027
               </p>
             </div>
 

@@ -134,7 +134,7 @@ const SchedulePage = ({ initialClass = '3ème' }) => {
           <h2 style={{ marginTop: '10px', textDecoration: 'underline' }}>
             EMPLOI DU TEMPS OFFICIEL — CLASSE DE {activeClassTab.toUpperCase()}
           </h2>
-          <p>Année Scolaire : 2025 - 2026 | Horaire Hebdomadaire : Lundi à Samedi | Date d'édition : {new Date().toLocaleDateString('fr-FR')}</p>
+          <p>Année Scolaire : 2026 - 2027 | Horaire Hebdomadaire : Lundi à Samedi | Date d'édition : {new Date().toLocaleDateString('fr-FR')}</p>
         </div>
       </div>
 

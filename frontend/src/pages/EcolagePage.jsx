@@ -193,7 +193,7 @@ const EcolagePage = () => {
               N° {activeReceipt.recuNo}
             </h2>
             <p>
-              Date d'émission : {new Date(activeReceipt.date).toLocaleDateString('fr-FR')} | Année Scolaire : 2025 - 2026
+              Date d'émission : {new Date(activeReceipt.date).toLocaleDateString('fr-FR')} | Année Scolaire : 2026 - 2027
             </p>
           </div>
 
