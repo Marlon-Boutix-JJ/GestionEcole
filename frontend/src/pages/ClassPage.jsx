@@ -248,7 +248,7 @@ const ClassPage = ({ classKey, className }) => {
 
 
       {/* Tableau Simplifié : Uniquement Nom & Prénom, Matricule, et Icône Œil pour détails */}
-      <div className="card-panel">
+      <div className="card-panel no-print">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
           <div style={{ fontWeight: '700', fontSize: '1.1rem', color: 'var(--text-main)' }}>
             Effectif Total : <span style={{ color: 'var(--primary)' }}>{students.length} élève(s)</span>
